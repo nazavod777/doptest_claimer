@@ -45,7 +45,8 @@ class Claimer:
                 response_json: dict = await r.json(content_type=None)
 
                 if response_json['statusCode'] == 429:
-                    logger.info(f'{self.account.key.hex()} | Too Many Requests')
+                    logger.info(f'{self.account.key.hex()} | Too Many Requests, sleeping 30 secs.')
+                    await asyncio.sleep(delay=30)
                     continue
 
                 if response_json.get('statusCode', 0) != 200 or response_json.get('message', '') != 'Signin Successful':
@@ -121,7 +122,8 @@ class Claimer:
                 response_json: dict = await r.json(content_type=None)
 
                 if response_json['statusCode'] == 429:
-                    logger.info(f'{self.account.key.hex()} | Too Many Requests')
+                    logger.info(f'{self.account.key.hex()} | Too Many Requests, sleeping 30 secs.')
+                    await asyncio.sleep(delay=30)
                     continue
 
                 if response_json['statusCode'] != 200 or response_json['message'] != 'Claimed successfully':
